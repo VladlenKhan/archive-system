@@ -1,5 +1,12 @@
+"""Вспомогательные функции безопасного ввода данных."""
+
+from datetime import date, datetime
+
+DATE_FORMAT = "%Y-%m-%d"
+
+
 def input_int(message: str) -> int:
-    """Запрашивает у пользователя целое число."""
+    """Запросить у пользователя целое число."""
     while True:
         try:
             return int(input(message))
@@ -8,7 +15,7 @@ def input_int(message: str) -> int:
 
 
 def input_bool(message: str) -> bool:
-    """Запрашивает у пользователя значение True или False."""
+    """Запросить у пользователя ответ да или нет."""
     while True:
         value = input(message).strip().lower()
 
@@ -19,3 +26,18 @@ def input_bool(message: str) -> bool:
             return False
 
         print("Введите да или нет.")
+
+
+def input_date(message: str) -> str:
+    """Запросить дату в формате ГГГГ-ММ-ДД."""
+    while True:
+        value = input(message).strip()
+
+        if value == "":
+            return str(date.today())
+
+        try:
+            parsed = datetime.strptime(value, DATE_FORMAT)
+            return parsed.strftime(DATE_FORMAT)
+        except ValueError:
+            print("Ошибка: введите дату в формате ГГГГ-ММ-ДД.")
